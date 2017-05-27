@@ -11,6 +11,8 @@ glimpse(rozpocet)
 summary(rozpocet)
 
 nakladove_stredisko <- data.frame(table(rozpocet$nakladove_stredisko))
+ucetni_stredisko <- data.frame(table(rozpocet$ucetni_stredisko))
+ucetni_stredisko4 <- data.frame(table(rozpocet$ucetni_stredisko4))
 rozdeleni <- data.frame(table(rozpocet$rozdeleni))
 trida <- data.frame(table(rozpocet$trida))
 polozka <- data.frame(table(rozpocet$polozka))
@@ -22,6 +24,7 @@ pododdíl <- data.frame(table(rozpocet$pododdil))
 paragraf <- data.frame(table(rozpocet$paragraf))
 org <- data.frame(table(rozpocet$org))
 orj <- data.frame(table(rozpocet$orj))
+suau <- data.frame(table(rozpocet$suau))
 
 table(rozpocet$cerpano > 0)
 table(rozpocet$cerpano < 0)
@@ -51,22 +54,25 @@ yearmonth <- function(year, month){
 rozpocet$rok_mesic <- yearmonth(rozpocet$rok, rozpocet$mesic)
 
 rozpocet <- rozpocet %>%
-  filter(!nakladove_stredisko %in% vhc)
+  filter(!nakladove_stredisko %in% vhc) %>%
+  mutate(ucetni_stredisko = ifelse(ucetni_stredisko == "Městská část Brno -Vinohrady", "Městská část Brno - Vinohrady", ucetni_stredisko))
+
+ucetni_stredisko <- rozpocet %>%
+  group_by(ucetni_stredisko, ucetni_stredisko4) %>%
+  summarise()
 
 upraveny_rozpocet <- rozpocet %>%
   filter(rozpocet_schvaleny != rozpocet_upraveny)
 
-rozpocet %>%
-  group_by()
-
-
 rozdeleni_bez_zarazeni <- rozpocet %>%
-  filter(Rozdělení == "Bez zařazení")
+  filter(rozdeleni == "Bez zařazení")
 
-
+ucetni_nakladove <- rozpocet %>%
+  group_by(ucetni_stredisko, nakladove_stredisko) %>%
+  summarise()
 
 # TODO
 # agregovat radky, aby byly 3 sloupce s castkami
 # prejmenovat na MU XXX
 
-
+write.csv(rozpocet, "rozpocet.csv")
