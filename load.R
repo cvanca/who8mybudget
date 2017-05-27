@@ -23,12 +23,12 @@ paragraf <- data.frame(table(rozpocet$paragraf))
 org <- data.frame(table(rozpocet$org))
 orj <- data.frame(table(rozpocet$orj))
 
-table(rozpocet$cerpano>0)
-table(rozpocet$cerpano<0)
+table(rozpocet$cerpano > 0)
+table(rozpocet$cerpano < 0)
 table(is.na(rozpocet$cerpano))
 
-table(rozpocet$rozpocet_upraveny>0)
-table(rozpocet$rozpocet_upraveny<0)
+table(rozpocet$rozpocet_upraveny > 0)
+table(rozpocet$rozpocet_upraveny < 0)
 table(is.na(rozpocet$rozpocet_upraveny))
 
 
@@ -42,6 +42,13 @@ vhc <- c("MČ Brno - Bystrc - VHČ, Obecní byty",
          "MČ Brno - střed - VHČ Obecní byty",
          "Nákladové středisko - Jídelna",
          "Nákladové středisko - VHČ DPH")
+
+# Vytvorit sloupec ROK-MESIC-01
+yearmonth <- function(year, month){
+    as.Date(sprintf("%s-%s-01", year, month))
+}
+
+rozpocet$rok_mesic <- yearmonth(rozpocet$rok, rozpocet$mesic)
 
 rozpocet <- rozpocet %>%
   filter(!nakladove_stredisko %in% vhc)
