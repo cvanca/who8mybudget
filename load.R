@@ -1,10 +1,15 @@
 library(dplyr)
-library(readxl)
-
 
 # LOAD DATA FROM https://datahub.io/dataset/rozpoctova-data
-rozpocet <- read_excel("rozpoctovadata.xlsx")
-names(rozpocet) <- c("rok", "mesic", "ucetni_stredisko", "nakladove_stredisko", "rozdeleni", "trida", "skupina", "podskupina", "polozka", "skupina2", "oddil", "pododdil", "paragraf", "ucetni_stredisko4", "org", "suau", "synteticky_ucet", "analyticky_ucet", "orj", "k_za_ucetni_jedn", "k_smb", "rozpocet_schvaleny", "rozpocet_upraveny", "cerpano")
+rozpocet <- readxl::read_excel("data/rozpoctovadata.xlsx")
+names(rozpocet) <- c("rok", "mesic", "ucetni_stredisko", 
+                     "nakladove_stredisko", "rozdeleni", 
+                     "trida", "skupina", "podskupina", 
+                     "polozka", "skupina2", "oddil", 
+                     "pododdil", "paragraf", "ucetni_stredisko4", 
+                     "org", "suau", "synteticky_ucet", "analyticky_ucet", 
+                     "orj", "k_za_ucetni_jedn", "k_smb", "rozpocet_schvaleny", 
+                     "rozpocet_upraveny", "cerpano")
 
 # EXPLORE ###########################################
 glimpse(rozpocet)
@@ -46,6 +51,11 @@ vhc <- c("MČ Brno - Bystrc - VHČ, Obecní byty",
          "Nákladové středisko - Jídelna",
          "Nákladové středisko - VHČ DPH")
 
+rozpocet <- rozpocet %>%
+  filter(!nakladove_stredisko %in% vhc) %>%
+  mutate(ucetni_stredisko = ifelse(ucetni_stredisko == "Městská část Brno -Vinohrady", 
+                                   "Městská část Brno - Vinohrady", ucetni_stredisko))
+
 # Vytvorit sloupec ROK-MESIC-01
 yearmonth <- function(year, month){
     as.Date(sprintf("%s-%s-01", year, month))
@@ -53,9 +63,15 @@ yearmonth <- function(year, month){
 
 rozpocet$rok_mesic <- yearmonth(rozpocet$rok, rozpocet$mesic)
 
-rozpocet <- rozpocet %>%
-  filter(!nakladove_stredisko %in% vhc) %>%
-  mutate(ucetni_stredisko = ifelse(ucetni_stredisko == "Městská část Brno -Vinohrady", "Městská část Brno - Vinohrady", ucetni_stredisko))
+
+# TODO
+# agregovat radky, aby byly 3 sloupce s castkami
+# prejmenovat na MU XXX
+
+write.csv(rozpocet, "data/rozpocet.csv")
+
+
+#### OTHER
 
 ucetni_stredisko <- rozpocet %>%
   group_by(ucetni_stredisko, ucetni_stredisko4) %>%
@@ -71,8 +87,4 @@ ucetni_nakladove <- rozpocet %>%
   group_by(ucetni_stredisko, nakladove_stredisko) %>%
   summarise()
 
-# TODO
-# agregovat radky, aby byly 3 sloupce s castkami
-# prejmenovat na MU XXX
 
-write.csv(rozpocet, "rozpocet.csv")

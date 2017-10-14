@@ -1,6 +1,6 @@
 setwd('c:/Dropbox/github_hackathon_2017/who8mybudget/')
 
-efCerp <- read.csv("rozpocty_polit.csv", header = TRUE, sep = ",", encoding = "UTF-8")
+efCerp <- read.csv("data/rozpocty_polit.csv", header = TRUE, sep = ",", encoding = "UTF-8")
 
 barva <- c("ANO" = "#400080", "CSSD" =  "#ff9900", "KDU" = "#ffff00", "NK" = "#808080", "ODS" = "#0000cc",
            "SOL" = "#009933", "STAN" = "#0d0d0d", "SZ" = "#00ff00", "ZB" = "#ff66cc")
@@ -22,7 +22,7 @@ efektivitaStarostu <- ggplot(efCerp, aes(x = reorder(misto30, efektivitacerpani6
  ####
  
  
- podil_cerpani_zdroj <- read.csv("podil_kapital.csv", header = TRUE, encoding = "UTF-8", sep = ",")
+ podil_cerpani_zdroj <- read.csv("data/podil_kapital.csv", header = TRUE, encoding = "UTF-8", sep = ",")
  
  
  podil_cerpani <- ggplot(podil_cerpani_zdroj, aes(x = reorder(misto30, podil_cerpano), y = podil_cerpano, fill = factor(star30))) +
@@ -39,7 +39,7 @@ efektivitaStarostu <- ggplot(efCerp, aes(x = reorder(misto30, efektivitacerpani6
  
  ####
  
- efCerp <- read.csv("rozpocty_polit.csv", header = TRUE, encoding = "UTF-8")
+ efCerp <- read.csv("data/rozpocty_polit.csv", header = TRUE, encoding = "UTF-8")
  
  barva <- c("ANO" = "#400080", "CSSD" =  "#ff9900", "KDU" = "#ffff00", "NK" = "#808080", "ODS" = "#0000cc",
             "SOL" = "#009933", "STAN" = "#0d0d0d", "SZ" = "#00ff00", "ZB" = "#ff66cc")
