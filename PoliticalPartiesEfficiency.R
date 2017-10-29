@@ -1,6 +1,6 @@
-podil_kapital<-read.csv("podil_kapital.csv", header = TRUE)
-kapvyd<-read.csv("ef.cer.kapvyd.csv", header = TRUE)
-polparrad<-read.csv("BrnoRadaMatrixRel.csv", header = TRUE)
+podil_kapital <- read.csv("data/podil_kapital.csv", header = TRUE)
+kapvyd <- read.csv("data/ef.cer.kapvyd.csv", header = TRUE)
+polparrad <- read.csv("data/BrnoRadaMatrixRel.csv", header = TRUE)
 
 attach(podil_kapital)
 attach(kapvyd)
