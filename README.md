@@ -12,6 +12,8 @@ městských částí v čase, podílu kapitálových výdajů na celkových výd
 jednotlivých odborů magistrátu města Brna.
 Grafy jsou dostupné ve složce `graphs/`.
 
+`PoliticalPartiesEfficiency.R` - skript pro rychlou explorační analýzu dat o vztahu politického složení městských rad a "efektivitou hospodaření" městských částí za jejíž proxy byly považovány podíl kapitálových výdajů a rozdíl mezi schváleným a upraveným rozpočtem městských částí. Vzhledem k nízkému množství dat (pět kvartálů, jeden celý finanční rok) nelze potvrdit žádnou hypotézu. Sesbíraná data o politickém rozložení stran v městkých radách (přístupná v `data/`) a vizualizace politické blízkosti jednotlivých stran a politické podobnosti jednotlivých městských částí podle složení městkých rad pomocí PCA a dendogramů (přístupná v `graphs/`) jsou hezkou ukázkou z politické geografie Brna
+
 `efektivita_politici.R`
 
 `aggregate_city.R` - ?
